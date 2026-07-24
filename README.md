@@ -2,9 +2,9 @@
 
 # 🌸 CuraBreast AI
 
-### AI-Powered Women's Breast Health Awareness & Risk Assessment Platform
+### Know Your Risk. Protect Your Health.
 
-A full-stack, production-ready web application that provides intelligent breast health risk assessments, personalised recommendations, appointment tracking, and hospital location for women — all secured with JWT authentication and encrypted data storage.
+CuraBreast AI delivers intelligent breast health risk assessments, personalised recommendations, and connects you to the right care — all in one platform designed for women, secured with JWT authentication and encrypted data storage.
 
 <!-- Add after deployment -->
 <!-- Live Demo: https://your-demo.vercel.app -->
@@ -20,7 +20,7 @@ A full-stack, production-ready web application that provides intelligent breast 
 
 # 📌 Overview
 
-CuraBreast AI is a production-ready full-stack application that helps women assess breast health risk through an intelligent, weighted symptom-scoring engine, while also providing health analytics, hospital lookup, and appointment tracking in one secure platform.
+CuraBreast AI is a production-ready, full-stack platform built to help women know their risk and protect their health. It delivers intelligent breast health risk assessments through a weighted symptom-scoring engine, personalised recommendations, and easy access to the right care — alongside period tracking, health analytics, hospital lookup, and appointment tracking, all in one secure platform.
 
 The application was designed following modern full-stack development practices including modular architecture, RESTful APIs, JWT authentication, reusable React components, and responsive UI design.
 
@@ -43,6 +43,15 @@ The application was designed following modern full-stack development practices i
 - Monthly assessment history
 - Average score tracking
 - Dashboard statistics overview
+
+---
+
+## 🩸 Period Tracker
+
+- Log & track menstrual cycles
+- Predicted next period & fertile window
+- Cycle history & symmetry insights
+- Symptom logging alongside cycle data
 
 ---
 
@@ -443,6 +452,7 @@ password_resets → id, user_id, token, expires_at, used
 | Forgot Password | `/forgot-password` | Public |
 | Dashboard | `/dashboard` | User |
 | Assessment | `/assessment` | User |
+| Period Tracker | `/period-tracker` | User |
 | Reports | `/reports` | User |
 | Appointments | `/appointments` | User |
 | Hospital Locator | `/hospitals` | User |
@@ -453,59 +463,24 @@ password_resets → id, user_id, token, expires_at, used
 
 ---
 
-# 🚢 Production Deployment
+# 🚀 Deployment
 
-## Environment Variables (Production)
+## Frontend — Vercel
 
-```env
-NODE_ENV=production
-JWT_SECRET=<64+ random hex characters>
-FRONTEND_URL=https://yourdomain.com
-DB_PASSWORD=<strong_password>
-```
+1. Connect your GitHub repo to [Vercel](https://vercel.com).
+2. Set **Root Directory** to `frontend`.
+3. Set **Build Command** to `npm run build`.
+4. Set **Output Directory** to `dist`.
+5. Add environment variable: `VITE_API_BASE_URL=https://your-backend.onrender.com/api`.
 
-## Build Frontend
+## Backend — Render
 
-```bash
-cd frontend
-npm run build
-# Outputs to frontend/dist/
-```
-
-## Serve with PM2 (Backend)
-
-```bash
-npm install -g pm2
-cd backend
-pm2 start server.js --name curabreast-api
-pm2 save
-pm2 startup
-```
-
-## Nginx Config (optional)
-
-```nginx
-server {
-    listen 80;
-    server_name yourdomain.com;
-
-    root /var/www/curabreast/frontend/dist;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    location /api {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
+1. Connect your GitHub repo to [Render](https://render.com).
+2. Set **Root Directory** to `backend`.
+3. Set **Build Command** to `npm install`.
+4. Set **Start Command** to `node server.js`.
+5. Add all environment variables from `backend/.env.example`, including a managed PostgreSQL connection string.
+6. Set `FRONTEND_URL=https://your-app.vercel.app`.
 
 ---
 
